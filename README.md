@@ -10,4 +10,4 @@ This comes in handy, if you want to start e.g. a huge amount of testruns.
 Usage
 -----
 
-simrun -n \<num_of_processes\> [-j <simultan>] <cmd>
+simrun -n \<num_of_processes\> [-j \<simultan>] \<cmd\>
