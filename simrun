@@ -1,0 +1,67 @@
+##
+###############################################################################
+#
+# Copyright 2012, Johannes Kulick <kulick@hildensia.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+###############################################################################!/bin/sh
+# This is simple script which allows you to run n instances of a
+# programm with j instants being simulanously.
+# Usage is very simple:
+# simrun -n <processes> [-j <simultanously> ] <cmd>
+
+getRunning(){
+  running=0
+  for pid in $pids
+  do
+    $(kill -0 $pid 2> /dev/null)
+    if [ $? -eq 0 ]
+    then
+      running=$(($running+1))
+    fi
+  done
+}
+
+simultan=`grep -c 'processor' /proc/cpuinfo`
+
+while getopts "s:n:j:f:" opt;
+do
+  case $opt in
+    n) num=$OPTARG ;;
+    j) simultan=$OPTARG ;;
+    *) echo "Usage: $0 -n <NUM OF PROGRAMMS> [-j <SIMULTAN PROGS>] <PROGRAMM>" ; exit 1 ;;
+  esac
+done
+
+shift $(($# - 1))
+cmd=$1
+pids=""
+
+for i in `seq 1 $num`
+do
+  getRunning
+  while [ $running -ge $simultan ]
+  do
+    sleep 1
+    getRunning
+  done
+  exec $cmd &
+  pids="$pids $!"
+done
+
+for pid in $pids
+do
+  wait $pid
+done
