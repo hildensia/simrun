@@ -1,4 +1,4 @@
-##
+#!/bin/sh
 ###############################################################################
 #
 # Copyright 2012, Johannes Kulick <kulick@hildensia.de>
@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-###############################################################################!/bin/sh
+##############################################################################
 # This is simple script which allows you to run n instances of a
 # programm with j instants being simulanously.
 # Usage is very simple:
