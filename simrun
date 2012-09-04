@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ###############################################################################
 #
 # Copyright 2012, Johannes Kulick <kulick@hildensia.de>
@@ -57,7 +57,8 @@ do
     sleep 1
     getRunning
   done
-  exec $cmd &
+  ccmd=echo $cmd | sed "s/%RUN/$i/g"
+  exec $ccmd &
   pids="$pids $!"
 done
 
