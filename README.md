@@ -15,7 +15,11 @@ simrun -n \<num_of_processes\> [-j \<simultan>] \<cmd\>
 Substitution
 ------------
 
-You can add the placeholder %RUN to your command, which will be replaced by a
-running number of the current run. (Handy to apply to flags for log files)
+You can add placeholders, which start with %, to your command, which will be
+replaced by a value by simrun before exeecuting the specified command.
+
+Possible substitutions:
+* %RUN - becomess a running number of the current run
+* %RANDOM - becomes a random integer
 
 

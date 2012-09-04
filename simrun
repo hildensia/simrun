@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ###############################################################################
 #
 # Copyright 2012, Johannes Kulick <kulick@hildensia.de>
@@ -58,6 +58,7 @@ do
     getRunning
   done
   ccmd=$(echo $cmd | sed "s/%RUN/$i/g")
+  ccmd=$(echo $ccmd | sed "s/%RANDOM/$RANDOM/g")
   exec $ccmd &
   pids="$pids $!"
 done
